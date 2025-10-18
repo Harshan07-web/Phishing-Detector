@@ -1,0 +1,13 @@
+{
+    "favorites.sortOrder": "DESC",
+    "favorites.resources": [
+        {
+            "filePath": "",
+            "group": "Default"
+        },
+        {
+            "filePath": "data",
+            "group": "Default"
+        }
+    ]
+}

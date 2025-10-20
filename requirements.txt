@@ -1,0 +1,9 @@
+pandas
+numpy
+scikit-learn
+nltk
+tqdm
+flask
+matplotlib
+fuzzywuzzy
+python-Levenshtein

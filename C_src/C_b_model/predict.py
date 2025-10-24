@@ -4,7 +4,7 @@ from ..C_a_preprocessing.feature_extraction import extract_url_features
 # --- DELETE THIS LINE ---
 # from ..C_a_preprocessing.txt_cleaner import clean_url 
 
-def predict_url(url: str, model_path=r'D:\\phishing Detector\\D_saved_models\\rf_model.pkl'):
+def predict_url(url: str, model_path=r'E:\ML project\Phishing-Detector\D_saved_models\rf_model.pkl'):
     """Predict if a URL is phishing or legitimate."""
     model = joblib.load(model_path)
     
@@ -18,9 +18,9 @@ def predict_url(url: str, model_path=r'D:\\phishing Detector\\D_saved_models\\rf
 
 
     # features_df is a DataFrame with one row for the URL about to be predicted
-    print("FEATURE VECTOR (for debugging):")
+    """print("FEATURE VECTOR (for debugging):")
     for k, v in df.iloc[0].items():
-        print(f"{k}: {v}")
+        print(f"{k}: {v}")"""
 
 
     prediction = model.predict(df)[0]

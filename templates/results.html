@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>URL Check Result</title>
+</head>
+<body>
+    <h1>URL Check Result</h1>
+    <p><strong>URL:</strong> {{ url }}</p>
+    <p><strong>Corrected Domain:</strong> {{ corrected }}</p>
+    <p><strong>Prediction:</strong> {{ result }}</p>
+
+    <h2>Safety Tips:</h2>
+    <ul>
+        {% for tip in tips %}
+            <li>{{ tip }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">Check another URL</a>
+</body>
+</html>

@@ -1,5 +1,4 @@
 def recommend_practices(is_phishing: bool) -> list:
-    """Return safety or awareness tips based on detection."""
     if is_phishing:
         return [
             "Do not click on suspicious links.",

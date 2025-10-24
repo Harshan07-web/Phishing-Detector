@@ -4,19 +4,20 @@ import urllib.parse as urlparse
 from tldextract import extract
 
 def extract_url_features(url):
-    # Ensure URL has a scheme for accurate parsing
     if not url.startswith('http://') and not url.startswith('https://'):
         url = 'http://' + url
 
-    # Parse URL
     parsed = urlparse.urlparse(url)
     hostname = parsed.hostname or ""
     path = parsed.path or ""
     query = parsed.query or ""
-    ext = extract(url) 
-
     
-    # --- Base features ---
+    try:
+        ext = extract(url)
+    except Exception:
+        # Fallback for invalid URLs tldextract can't handle
+        ext = extract('http://invalid-url.com') 
+
     NumDots = url.count('.')
     SubdomainLevel = len(ext.subdomain.split('.')) if ext.subdomain else 0
     PathLevel = path.count('/')
@@ -34,7 +35,7 @@ def extract_url_features(url):
     NoHttps = 0 if url.lower().startswith('https') else 1
     RandomString = 1 if re.search(r'[a-zA-Z0-9]{15,}', hostname) else 0
     
-# Your original regex was slightly wrong. Use re.fullmatch
+
     ip_pattern = r'^(\d{1,3}\.){3}\d{1,3}$'
     IpAddress = 1 if re.fullmatch(ip_pattern, hostname) else 0
 
@@ -47,10 +48,7 @@ def extract_url_features(url):
     DoubleSlashInPath = 1 if '//' in path else 0
     
     sensitive_words = ['secure', 'account', 'login', 'bank', 'update', 'verify']
-    NumSensitiveWords = sum(word in url.lower() for word in sensitive_words)
-            
-    # --- Placeholder features ---
-    # (These remain the same)
+    NumSensitiveWords = sum(word in url.lower() for word in sensitive_words)         
     EmbeddedBrandName = 0
     PctExtHyperlinks = 0
     PctExtResourceUrls = 0
@@ -75,7 +73,6 @@ def extract_url_features(url):
     ExtMetaScriptLinkRT = 0
     PctExtNullSelfRedirectHyperlinksRT = 0
 
-    # Combine all features into dict
     features = {
         "NumDots": NumDots,
         "SubdomainLevel": SubdomainLevel,
@@ -93,7 +90,7 @@ def extract_url_features(url):
         "NumNumericChars": NumNumericChars,
         "NoHttps": NoHttps,
         "RandomString": RandomString,
-        "IpAddress": IpAddress,
+        "IpAddress": IpAddress, 
         "DomainInSubdomains": DomainInSubdomains,
         "DomainInPaths": DomainInPaths,
         "HttpsInHostname": HttpsInHostname,
@@ -101,12 +98,8 @@ def extract_url_features(url):
         "PathLength": PathLength,
         "QueryLength": QueryLength,
         "DoubleSlashInPath": DoubleSlashInPath,
-        
-        # --- REMOVED Old Feature ---
         "NumSensitiveWords": NumSensitiveWords, 
-    
         
-        # --- Placeholder Features ---
         "EmbeddedBrandName": EmbeddedBrandName,
         "PctExtHyperlinks": PctExtHyperlinks,
         "PctExtResourceUrls": PctExtResourceUrls,
@@ -124,8 +117,8 @@ def extract_url_features(url):
         "IframeOrFrame": IframeOrFrame,
         "MissingTitle": MissingTitle,
         "ImagesOnlyInForm": ImagesOnlyInForm,
-        "SubdomainLevelRT": SubdomainLevelRT,
-        "UrlLengthRT": UrlLengthRT,
+        "SubdomainLevelRT": SubdomainLevel,
+        "UrlLengthRT": UrlLength,
         "PctExtResourceUrlsRT": PctExtResourceUrlsRT,
         "AbnormalExtFormActionR": AbnormalExtFormActionR,
         "ExtMetaScriptLinkRT": ExtMetaScriptLinkRT,

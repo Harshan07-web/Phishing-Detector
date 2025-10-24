@@ -16,7 +16,6 @@ def home():
     if request.method == "POST":
         url = request.form.get("url")
         if url:
-            # Prediction
             result = predict_url(url)
             corrected = correct_domain(url)
             tips = recommend_practices(result == "Phishing")

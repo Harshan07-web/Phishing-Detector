@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Model Evaluation</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        table { border-collapse: collapse; width: 50%; margin-top: 20px; }
+        th, td { border: 1px solid #555; padding: 8px; text-align: center; }
+        h1 { color: #2b6cb0; }
+        a { text-decoration: none; color: #007bff; }
+    </style>
+</head>
+<body>
+    <h1>📊 Model Evaluation Results</h1>
+
+    <table>
+        <tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Accuracy</td><td>{{ metrics.accuracy }}%</td></tr>
+        <tr><td>Precision</td><td>{{ metrics.precision }}</td></tr>
+        <tr><td>Recall</td><td>{{ metrics.recall }}</td></tr>
+        <tr><td>F1 Score</td><td>{{ metrics.f1_score }}</td></tr>
+    </table>
+
+    <h2>Confusion Matrix</h2>
+    <table>
+        {% for row in metrics.confusion_matrix %}
+            <tr>
+                {% for cell in row %}
+                    <td>{{ cell }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="/">⬅ Back to Home</a>
+</body>
+</html>
